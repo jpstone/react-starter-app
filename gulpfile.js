@@ -45,56 +45,6 @@ const config = {
   port: 3000
 };
 
-gulp.task('start:server', () => {
-  $.nodemon({
-    script: 'server/app.js',
-    watch: [path.pug, path.js.react.src, path.js.services, path.js.server]
-  })
-  .on('start', () => {
-    whenServerReady(browserSync.reload);
-  });
-});
-
-gulp.task('start:client', cb => {
-  whenServerReady(() => {
-    browserSync.init({
-      proxy: 'http://localhost:3000',
-      browser: ['google chrome'],
-      port: 8888,
-      notify: false,
-      files: [path.css.main, path.img]
-    });
-    cb();
-  });
-});
-
-gulp.task('reactify', () => {
-  return gulp.src(path.js.react.src)
-    .pipe($.react())
-    .pipe(gulp.dest(path.js.react.dest));
-});
-
-gulp.task('browserify', () => {
-  const b = browserify({
-    entries: path.js.browserify.src,
-    debug: true
-  });
-
-  return b.bundle()
-    .pipe(source('bundle.js'))
-    .pipe(buffer())
-    .pipe(gulp.dest(path.js.browserify.dest));
-});
-
-gulp.task('clean', () => {
-  return del([
-    path.tmp,
-    'bundle'
-  ], {
-    dot: true
-  });
-});
-
 gulp.task('serve', cb => { 
   runSequence(
     ['clean', 'styles'],
@@ -104,6 +54,15 @@ gulp.task('serve', cb => {
     'watch',
     cb
   );
+});
+
+gulp.task('clean', () => {
+  return del([
+    path.tmp,
+    'bundle'
+  ], {
+    dot: true
+  });
 });
 
 gulp.task('styles', () => {
@@ -135,6 +94,47 @@ gulp.task('styles', () => {
     .pipe($.autoprefixer()).on('error', errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.css.dest));
+});
+
+gulp.task('reactify', () => {
+  return gulp.src(path.js.react.src)
+    .pipe($.react())
+    .pipe(gulp.dest(path.js.react.dest));
+});
+
+gulp.task('browserify', () => {
+  const b = browserify({
+    entries: path.js.browserify.src,
+    debug: true
+  });
+
+  return b.bundle()
+    .pipe(source('bundle.js'))
+    .pipe(buffer())
+    .pipe(gulp.dest(path.js.browserify.dest));
+});
+
+gulp.task('start:server', () => {
+  $.nodemon({
+    script: 'server/app.js',
+    watch: [path.pug, path.js.react.src, path.js.services, path.js.server]
+  })
+  .on('start', () => {
+    whenServerReady(browserSync.reload);
+  });
+});
+
+gulp.task('start:client', cb => {
+  whenServerReady(() => {
+    browserSync.init({
+      proxy: 'http://localhost:3000',
+      browser: ['google chrome'],
+      port: 8888,
+      notify: false,
+      files: [path.css.main, path.img]
+    });
+    cb();
+  });
 });
 
 gulp.task('watch', () => {
