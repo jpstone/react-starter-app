@@ -46,10 +46,6 @@ const config = {
 };
 
 gulp.task('start:server', () => {
-  /*process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-  nodemon('-w ' + path.pug + ' -w ' + path.js.react.src +
-    ' -w ' + path.js.server + ' server/app.js')
-  .on('log', onServerLog);*/
   $.nodemon({
     script: 'server/app.js',
     watch: [path.pug, path.js.react.src, path.js.services, path.js.server]
