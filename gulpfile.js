@@ -32,7 +32,7 @@ const path = {
     main: 'css/styles.css'
   },
   scss: {
-    constiables: 'scss/constiables.scss',
+    variables: 'scss/variables.scss',
     mixins: 'scss/mixins.scss',
     src: '**/*.scss',
     main: 'scss/styles.scss'
@@ -110,13 +110,13 @@ gulp.task('styles', () => {
   const sassOptions = {
     style: 'expanded'
   };
-  const constiables = gulp.src('scss/constiables.scss', {read: false});
-  const mixins = gulp.src('scss/mixins.scss', {read: false});
+  const variables = gulp.src(path.scss.variables, {read: false});
+  const mixins = gulp.src(path.scss.mixins, {read: false});
   const inject = gulp.src([
     path.scss.src,
-    '!' + path.scss.main,
-    '!' + path.scss.constiables,
-    '!' + path.scss.mixins,
+    `!${path.scss.main}`,
+    `!${path.scss.variables}`,
+    `!${path.scss.mixins}`,
     '!node_modules/**/*.scss'
   ], {read: false});
   const options = {
@@ -129,7 +129,7 @@ gulp.task('styles', () => {
   };
 
   return gulp.src(path.scss.main)
-    .pipe($.inject(series(constiables, mixins, inject), options))
+    .pipe($.inject(series(variables, mixins, inject), options))
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions)).on('error', errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', errorHandler('Autoprefixer'))
@@ -158,7 +158,7 @@ gulp.task('reload', function (cb) {
 
 function errorHandler(name) {
   return err => {
-    $.util.log($.util.colors.red('[' + name + ']'), err.toString());
+    $.util.log($.util.colors.red(`[${name}]`), err.toString());
     this.emit('end');
   }
 }
