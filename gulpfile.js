@@ -139,9 +139,7 @@ gulp.task('styles', () => {
 
 gulp.task('watch', () => {
 
-  gulp.watch([path.scss.src], () => {
-    runSequence('styles');
-  });
+  gulp.watch(path.scss.src, ['styles']);
 
   gulp.watch(path.js.react.src, () => {
     runSequence('clean', 'reactify', 'browserify', 'reload');
