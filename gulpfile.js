@@ -55,6 +55,19 @@ gulp.task('start:server', () => {
   });
 });
 
+gulp.task('start:client', cb => {
+  whenServerReady(() => {
+    browserSync.init({
+      proxy: 'http://localhost:3000',
+      browser: ['google chrome'],
+      port: 8888,
+      notify: false,
+      files: [path.css.main, path.img]
+    });
+    cb();
+  });
+});
+
 gulp.task('reactify', () => {
   return gulp.src(path.js.react.src)
     .pipe($.react())
@@ -122,19 +135,6 @@ gulp.task('styles', () => {
     .pipe($.autoprefixer()).on('error', errorHandler('Autoprefixer'))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(path.css.dest));
-});
-
-gulp.task('start:client', cb => {
-  whenServerReady(() => {
-    browserSync.init({
-      proxy: 'http://localhost:3000',
-      browser: ['google chrome'],
-      port: 8888,
-      notify: false,
-      files: [path.css.main, path.img]
-    });
-    cb();
-  });
 });
 
 gulp.task('watch', () => {
