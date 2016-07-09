@@ -121,7 +121,7 @@ gulp.task('styles', () => {
   ], {read: false});
   const options = {
     transform: function(filePath) {
-        return '@import "' + filePath + '";';
+        return `@import "${filePath}";`;
     },
     starttag: '// injector',
     endtag: '// endinjector',
