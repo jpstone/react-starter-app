@@ -103,7 +103,7 @@ gulp.task('serve', cb => {
     ['start:server', 'start:client'],
     'watch',
     cb
-  )
+  );
 });
 
 gulp.task('styles', () => {
