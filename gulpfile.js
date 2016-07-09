@@ -55,9 +55,7 @@ gulp.task('start:server', () => {
     watch: [path.pug, path.js.react.src, path.js.services, path.js.server]
   })
   .on('start', () => {
-    whenServerReady(() => {
-      browserSync.reload();
-    });
+    whenServerReady(browserSync.reload);
   });
 });
 
