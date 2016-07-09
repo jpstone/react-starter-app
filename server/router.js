@@ -2,10 +2,10 @@ const router = require('express-promise-router')();
 const React = require('react');
 const ReactDOM = require('react-dom/server');
 const components = require('../.tmp/components');
-const preloadedImages = require('../services/preloaded-images');
+const preloadImages = require('../services/preload-images');
 
 router.get('/', (req, res) => {
-  preloadedImages.then(images => {
+  preloadImages.then(images => {
     res.render('index', {
       main: createFactory('Main'),
       preloadedImages: images.join('\n'),

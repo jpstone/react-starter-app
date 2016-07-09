@@ -1,19 +1,19 @@
 'use strict';
 
-var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
-var nodemon = require('nodemon');
-var browserify = require('browserify');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var series = require('stream-series');
-var del = require('del');
-var vinylPaths = require('vinyl-paths');
-var http = require('http');
-var runSequence = require('run-sequence');
-var browserSync = require('browser-sync').create();
+const gulp = require('gulp');
+const $ = require('gulp-load-plugins')();
+const nodemon = require('nodemon');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
+const buffer = require('vinyl-buffer');
+const series = require('stream-series');
+const del = require('del');
+const vinylPaths = require('vinyl-paths');
+const http = require('http');
+const runSequence = require('run-sequence');
+const browserSync = require('browser-sync').create();
 
-var path = {
+const path = {
   js: {
     browserify: {
       src: '.tmp/components/index.js',
@@ -32,7 +32,7 @@ var path = {
     main: 'css/styles.css'
   },
   scss: {
-    variables: 'scss/variables.scss',
+    constiables: 'scss/constiables.scss',
     mixins: 'scss/mixins.scss',
     src: '**/*.scss',
     main: 'scss/styles.scss'
@@ -41,11 +41,11 @@ var path = {
   tmp: '.tmp'
 };
 
-var config = {
+const config = {
   port: 3000
 };
 
-gulp.task('start:server', function () {
+gulp.task('start:server', () => {
   /*process.env.NODE_ENV = process.env.NODE_ENV || 'development';
   nodemon('-w ' + path.pug + ' -w ' + path.js.react.src +
     ' -w ' + path.js.server + ' server/app.js')
@@ -54,21 +54,21 @@ gulp.task('start:server', function () {
     script: 'server/app.js',
     watch: [path.pug, path.js.react.src, path.js.services, path.js.server]
   })
-  .on('start', function () {
-    whenServerReady(function () {
+  .on('start', () => {
+    whenServerReady(() => {
       browserSync.reload();
     });
   });
 });
 
-gulp.task('reactify', function () {
+gulp.task('reactify', () => {
   return gulp.src(path.js.react.src)
     .pipe($.react())
     .pipe(gulp.dest(path.js.react.dest));
 });
 
-gulp.task('browserify', function () {
-  var b = browserify({
+gulp.task('browserify', () => {
+  const b = browserify({
     entries: path.js.browserify.src,
     debug: true
   });
@@ -79,7 +79,7 @@ gulp.task('browserify', function () {
     .pipe(gulp.dest(path.js.browserify.dest));
 });
 
-gulp.task('clean', function () {
+gulp.task('clean', () => {
   return del([
     path.tmp,
     'bundle'
@@ -88,7 +88,7 @@ gulp.task('clean', function () {
   });
 });
 
-gulp.task('serve', function (cb) { 
+gulp.task('serve', cb => { 
   runSequence(
     ['clean', 'styles'],
     'reactify',
@@ -99,20 +99,20 @@ gulp.task('serve', function (cb) {
   )
 });
 
-gulp.task('styles', function () {
-  var sassOptions = {
+gulp.task('styles', () => {
+  const sassOptions = {
     style: 'expanded'
   };
-  var variables = gulp.src('scss/variables.scss', {read: false});
-  var mixins = gulp.src('scss/mixins.scss', {read: false});
-  var inject = gulp.src([
+  const constiables = gulp.src('scss/constiables.scss', {read: false});
+  const mixins = gulp.src('scss/mixins.scss', {read: false});
+  const inject = gulp.src([
     path.scss.src,
     '!' + path.scss.main,
-    '!' + path.scss.variables,
+    '!' + path.scss.constiables,
     '!' + path.scss.mixins,
     '!node_modules/**/*.scss'
   ], {read: false});
-  var options = {
+  const options = {
     transform: function(filePath) {
         return '@import "' + filePath + '";';
     },
@@ -122,7 +122,7 @@ gulp.task('styles', function () {
   };
 
   return gulp.src(path.scss.main)
-    .pipe($.inject(series(variables, mixins, inject), options))
+    .pipe($.inject(series(constiables, mixins, inject), options))
     .pipe($.sourcemaps.init())
     .pipe($.sass(sassOptions)).on('error', errorHandler('Sass'))
     .pipe($.autoprefixer()).on('error', errorHandler('Autoprefixer'))
@@ -130,8 +130,8 @@ gulp.task('styles', function () {
     .pipe(gulp.dest(path.css.dest));
 });
 
-gulp.task('start:client', function (cb) {
-  whenServerReady(function () {
+gulp.task('start:client', cb => {
+  whenServerReady(() => {
     browserSync.init({
       proxy: 'http://localhost:3000',
       browser: ['google chrome'],
@@ -143,13 +143,13 @@ gulp.task('start:client', function (cb) {
   });
 });
 
-gulp.task('watch', function () {
+gulp.task('watch', () => {
 
-  gulp.watch([path.scss.src], function () {
+  gulp.watch([path.scss.src], () => {
     runSequence('styles');
   });
 
-  gulp.watch(path.js.react.src, function () {
+  gulp.watch(path.js.react.src, () => {
     runSequence('clean', 'reactify', 'browserify', 'reload');
   });
 
@@ -163,18 +163,16 @@ gulp.task('reload', function (cb) {
 })
 
 function errorHandler(name) {
-  return (
-    function (err) {
-      $.util.log($.util.colors.red('[' + name + ']'), err.toString());
-      this.emit('end');
-    }
-  );
+  return err => {
+    $.util.log($.util.colors.red('[' + name + ']'), err.toString());
+    this.emit('end');
+  }
 }
 
 function whenServerReady(cb) {
-  var serverReady = false;
-  var appReadyInterval = setInterval(function () {
-  checkAppReady(function (ready) {
+  let serverReady = false;
+  const appReadyInterval = setInterval(() => {
+  checkAppReady(ready => {
     if (!ready || serverReady) {
       return;
     }
@@ -185,14 +183,14 @@ function whenServerReady(cb) {
 }
 
 function checkAppReady(cb) {
-  var options = {
+  const options = {
     host: 'localhost',
     port: config.port
   };
-  http.get(options, function () {
+  http.get(options, () => {
     cb(true);
   })
-  .on('error', function () {
+  .on('error', () => {
     cb(false);
   });
 }
