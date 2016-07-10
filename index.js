@@ -9,13 +9,14 @@ function scaffold() {
   console.log(cliColor.blue('Scaffolding app...'));
   readdirRecursive(__dirname + '/lib')
   .map(function (item) {
+    var itemPath = item.path.split('react-starter-app/lib')[1];
     if (item.isDirectory) {
-      return fs.mkdirAsync(process.cwd() + item.path.split('lib')[1]);
+      return fs.mkdirAsync(process.cwd() + itemPath);
     } else {
       return fs.readFileAsync(item.path, 'utf8')
         .then(function (contents) {
           return fs.writeFileAsync(
-            process.cwd() + item.path.split('lib')[1],
+            process.cwd() + itemPath,
             contents,
             'utf8'
           );
@@ -32,7 +33,7 @@ function scaffold() {
     npmInstance.install(process.cwd());
   })
   .catch(function (err) {
-    console.log(cliColor.red(err.stack));
+    console.error(cliColor.red(err.stack));
   });
 }
 
