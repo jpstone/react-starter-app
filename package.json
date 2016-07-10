@@ -1,5 +1,5 @@
 {
-  "name": "react-base",
+  "name": "react-starter-app",
   "version": "0.0.1",
   "description": "React: server-side rendering + gulp + express + nodemon + browserSync + jade/pug + sass",
   "main": "gulpfile.js",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "repository": {
     "git": "https://github.com/jpstone/react-start-app.git"
-  } ,
+  },
   "devDependencies": {
     "browser-sync": "^2.13.0",
     "browserify": "^13.0.1",
