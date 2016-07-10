@@ -2,6 +2,7 @@ var Promise = require('bluebird');
 var fs = Promise.promisifyAll(require('fs'));
 var npm = Promise.promisifyAll(require('npm'));
 var cliColor = require('cli-color');
+var exec = require('child_process').exec;
 
 module.exports = scaffold;
 
@@ -27,10 +28,7 @@ function scaffold() {
   .then(function () {
     console.log(cliColor.blue('Finished scaffolding app'));
     console.log(cliColor.green('Installing npm modules...'));
-    return npm.loadAsync();
-  })
-  .then(function (npmInstance) {
-    npmInstance.install(process.cwd());
+    exec('npm install ' + process.cwd());
   })
   .catch(function (err) {
     console.error(cliColor.red(err.stack));
