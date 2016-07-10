@@ -3,6 +3,9 @@
   "version": "1.0.5",
   "description": "React: server-side rendering + gulp + browserify + express + nodemon + browserSync + jade/pug + sass",
   "main": "index.js",
+  "bin": {
+    "react-starter-app": "bin/cmd.js"
+  },
   "author": "jpstone",
   "license": "MIT",
   "repository": {
