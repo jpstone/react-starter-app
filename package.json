@@ -1,6 +1,6 @@
 {
   "name": "react-starter-app",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React: server-side rendering + gulp + browserify + express + nodemon + browserSync + jade/pug + sass",
   "main": "index.js",
   "author": "jpstone",
