@@ -3,11 +3,8 @@
   "version": "0.0.1",
   "description": "React: server-side rendering + gulp + express + nodemon + browserSync + jade/pug + sass",
   "main": "gulpfile.js",
-  "scripts": {
-    "test": "gulp test"
-  },
   "author": "jpstone",
-  "private": true,
+  "license": "MIT",
   "repository": {
     "git": "https://github.com/jpstone/react-start-app.git"
   } ,
