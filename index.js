@@ -28,7 +28,11 @@ function scaffold() {
   .then(function () {
     console.log(cliColor.blue('Finished scaffolding app'));
     console.log(cliColor.green('Installing npm modules...'));
-    exec('npm install ' + process.cwd());
+    exec('npm install ' + process.cwd(), function (err, stdout, stderr) {
+      if (err) console.log(cliColor.red(err));
+      if (stdout) console.log(stdout);
+      if (stderr) console.log(cliColor.red(stderr));
+    });
   })
   .catch(function (err) {
     console.error(cliColor.red(err.stack));
