@@ -5,8 +5,8 @@
    `npm install -g react-starter-app`
 2. Create a new project directory and `cd` to that directory.
     
-    `mkdir new-project`
-    `cd new-project`
+    ```mkdir new-project
+    cd new-project```
 3. Run the package
 
    `react-starter-app`
