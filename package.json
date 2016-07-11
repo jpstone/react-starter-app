@@ -13,7 +13,7 @@
     "url": "git+https://github.com/jpstone/react-starter-app.git"
   },
   "bugs": {
-    "url" "https://github.com/jpstone/react-starter-app/issues"
+    "url": "https://github.com/jpstone/react-starter-app/issues"
   },
   "dependencies": {
     "bluebird": "^3.4.1",
