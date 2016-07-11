@@ -3,10 +3,12 @@
 1. Install package globally
 
    `npm install -g react-starter-app`
-2. Create a new project directory and `cd` to that directory.
+2. Create a new project directory and change to that directory.
     
-    ```mkdir new-project
-    cd new-project```
+    ```shell
+    $ mkdir new-project
+    $ cd new-project
+    ```
 3. Run the package
 
    `react-starter-app`
