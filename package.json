@@ -1,6 +1,6 @@
 {
   "name": "react-starter-app",
-  "version": "1.0.10",
+  "version": "1.1.1",
   "description": "React: server-side rendering + gulp + browserify + express + nodemon + browserSync + jade/pug + sass",
   "main": "index.js",
   "bin": {
@@ -9,7 +9,11 @@
   "author": "jpstone",
   "license": "MIT",
   "repository": {
-    "git": "https://github.com/jpstone/react-start-app.git"
+    "type": "git",
+    "url": "git+https://github.com/jpstone/react-starter-app.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jpstone/react-starter-app/issues"
   },
   "dependencies": {
     "bluebird": "^3.4.1",

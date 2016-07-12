@@ -17,6 +17,7 @@
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^2.3.2",
     "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
     "pug": "^2.0.0-beta2",
     "run-sequence": "^1.2.2",
     "stream-series": "^0.1.1",
