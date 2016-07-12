@@ -7,13 +7,8 @@ module.exports = scaffold;
 function scaffold() {
   return gulp.src(__dirname + '/lib')
     .pipe(gulp.dest(process.cwd()))
-    .pipe(console.log(cliColor.blue(
-      'Finished scaffolding app',
-      'Installing npm packages...'
-    )))
+    .pipe(process.stdout.write(cliColor.green('Installing npm packages...')))
     .pipe(install())
-    .pipe(console.log(cliColor.green(
-      'Finished installing npm packages',
-      'All done! Run "gulp serve" to start your app'
-    )));
+    .pipe(process.stdout.write(cliColor.green('Finished installing npm packages'))
+    .pipe(process.stdout.write(cliColor.green('All done! Run "gulp serve" to start your app')));
 }
