@@ -11,7 +11,7 @@ function scaffold() {
       'Finished scaffolding app',
       'Installing npm packages...'
     )))
-    .pipe(install());
+    .pipe(install())
     .pipe(console.log(cliColor.green(
       'Finished installing npm packages',
       'All done! Run "gulp serve" to start your app'
